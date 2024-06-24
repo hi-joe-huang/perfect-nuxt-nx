@@ -22,8 +22,14 @@ jobs:
         with:
           path: |
             node_modules
-            ~/.cache/Cypress # needed for the Cypress binary
           key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: 回復快取過的 Cypress binary
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: 安裝依賴套件
         run: pnpm install --frozen-lockfile
       - name: 快取依賴套件
@@ -31,8 +37,14 @@ jobs:
         with:
           path: |
             node_modules
-            ~/.cache/Cypress # needed for the Cypress binary
           key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: 儲存當前 Cypress binary 於快取中
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: 執行 nx-set-shas 使 nx affected 可以正確判斷 PR 有哪些變更
         uses: nrwl/nx-set-shas@v3
       - run: git branch --track main origin/main
