@@ -33,5 +33,11 @@ jobs:
             node_modules
             ~/.cache/Cypress # needed for the Cypress binary
           key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: 建構 backstage 專案
-        run: pnpm nx build backstage
+      - name: 執行 nx-set-shas 使 nx affected 可以正確判斷 PR 有哪些變更
+        uses: nrwl/nx-set-shas@v3
+      - run: git branch --track main origin/main
+        if: ${{ github.event_name == 'pull_request' }}
+      - name: 更動的部分重新 build 專案
+        run: pnpm nx affected -t build --parallel=1
+      - name: 更動的部分重新 E2E 測試專案
+        run: pnpm nx affected -t e2e --parallel=1
