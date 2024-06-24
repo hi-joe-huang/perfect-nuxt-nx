@@ -1,0 +1,55 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 初始化倉庫
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 安裝 pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: 回復快取過的依賴套件
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: 回復快取過的 Cypress binary
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: 安裝依賴套件
+        run: pnpm install --frozen-lockfile
+      - name: 快取依賴套件
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: 儲存當前 Cypress binary 於快取中
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: 執行 nx-set-shas 使 nx affected 可以正確判斷 PR 有哪些變更
+        uses: nrwl/nx-set-shas@v3
+      - run: git branch --track main origin/main
+        if: ${{ github.event_name == 'pull_request' }}
+      - name: 更動的部分重新 build 專案
+        run: pnpm nx affected -t build --parallel=1
+      - name: 更動的部分重新 E2E 測試專案
+        run: pnpm nx affected -t e2e-ci --parallel=1
