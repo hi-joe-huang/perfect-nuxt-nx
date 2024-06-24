@@ -3,9 +3,10 @@
   "compilerOptions": {
     "allowJs": true,
     "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
     "types": ["cypress", "node"],
-    "sourceMap": false
+    "sourceMap": false,
+    "esModuleInterop": true,
+    "moduleResolution": "node16"
   },
   "include": [
     "**/*.ts",
