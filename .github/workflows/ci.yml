@@ -52,4 +52,4 @@ jobs:
       - name: 更動的部分重新 build 專案
         run: pnpm nx affected -t build --parallel=1
       - name: 更動的部分重新 E2E 測試專案
-        run: pnpm nx affected -t e2e --parallel=1
+        run: pnpm nx affected -t e2e-ci --parallel=1
