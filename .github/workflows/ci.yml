@@ -9,4 +9,15 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello GitHub Actions!"
+      - name: 初始化倉庫
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 安裝 pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: 安裝依賴套件
+        run: pnpm install --frozen-lockfile
+      - name: 建構 backstage 專案
+        run: pnpm nx build backstage
