@@ -1,0 +1,1 @@
+export { thousandth } from './lib/thousandth'

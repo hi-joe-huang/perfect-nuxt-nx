@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { thousandth } from '@hiskio/utility'
 const counter = ref(1)
 
 function handleAddCounter() {
@@ -9,6 +10,8 @@ function handleSubtractCounter() {
   counter.value--
 }
 
+const thousandthTest = thousandth(123456789)
+
 </script>
 
 <template>
@@ -16,6 +19,12 @@ function handleSubtractCounter() {
     <h1>This is an about page.</h1>
     
     <div>
+      <div>
+        <h2>
+          Thousandth Utility Test
+        </h2>
+        {{ thousandthTest }}
+      </div>
       <h2>Counter</h2>
       <button @click="handleAddCounter">
         Add
