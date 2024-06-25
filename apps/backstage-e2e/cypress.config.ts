@@ -17,6 +17,9 @@ const preset = nxE2EPreset(__filename, {
 export default defineConfig({
   e2e: {
     ...preset,
+    env: {
+      tags: "@smoke"
+    },
     viewportWidth: 1200,
     viewportHeight: 720,
     supportFile: 'src/support/e2e.ts',
