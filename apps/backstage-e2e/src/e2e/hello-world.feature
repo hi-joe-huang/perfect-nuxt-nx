@@ -7,3 +7,8 @@ Feature: 範例測試
     Given A
     When B
     Then C
+
+  Scenario: 非冒煙測試
+    Given A
+    When B
+    Then C
