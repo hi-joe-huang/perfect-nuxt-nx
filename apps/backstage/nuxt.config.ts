@@ -3,6 +3,7 @@ import { defineNuxtConfig } from 'nuxt/config';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   workspaceDir: '../../',
   srcDir: 'src',
   devtools: { enabled: true },
