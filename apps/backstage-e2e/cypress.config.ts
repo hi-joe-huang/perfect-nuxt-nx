@@ -20,7 +20,7 @@ export default defineConfig({
     viewportWidth: 1200,
     viewportHeight: 720,
     supportFile: 'src/support/e2e.ts',
-    baseUrl: 'http://localhost:3001',
+    baseUrl: 'http://localhost:4200',
     specPattern: '**/*.feature',
     async setupNodeEvents(on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): Promise<Cypress.PluginConfigOptions> {
       // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
