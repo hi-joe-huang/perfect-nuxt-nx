@@ -1,3 +1,6 @@
 <template>
-  <NxWelcome title="backstage" />
+  <div>
+    <Foobar />
+    <NxWelcome title="backstage" />
+  </div>
 </template>
