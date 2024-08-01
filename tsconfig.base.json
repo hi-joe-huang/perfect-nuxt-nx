@@ -15,7 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hiskio/utility": ["libs/shared/utility/src/index.ts"]
+      "@hiskio/utility": ["libs/shared/utility/src/index.ts"],
+      // Barrel
+      // "@hiskio/vue-component": ["libs/vue-component/src/"],
+      // Individual
+      "@hiskio/vue-component/*": ["libs/vue-component/src/libs/*"]
+
     }
   },
   "exclude": ["node_modules", "tmp"]
