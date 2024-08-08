@@ -1,0 +1,21 @@
+<script setup lang="ts">
+  import { AlertDialogDescription, type AlertDialogDescriptionProps } from 'radix-vue'
+  import { computed, type HTMLAttributes } from 'vue'
+
+  import { cn } from '@hiskio/utility'
+
+  const props = defineProps<AlertDialogDescriptionProps & { class?: HTMLAttributes['class'] }>()
+
+  const delegatedProps = computed(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { class: _, ...delegated } = props
+
+    return delegated
+  })
+</script>
+
+<template>
+  <AlertDialogDescription v-bind="delegatedProps" :class="cn('text-muted-foreground text-sm', props.class)">
+    <slot />
+  </AlertDialogDescription>
+</template>

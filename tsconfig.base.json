@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hiskio/utility": ["libs/shared/utility/src/index.ts"]
+      "@hiskio/utility": ["libs/shared/utility/src/index.ts"],
+      "@hiskio/vue-component": ["libs/shared/ui/vue-component/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
