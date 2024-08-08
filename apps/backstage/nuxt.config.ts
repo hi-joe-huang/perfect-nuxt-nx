@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   ssr: false,
   modules: [
     '@nuxtjs/tailwindcss',
-    fileURLToPath(new URL('../../libs/shared/ui/vue-component/src/index.ts', import.meta.url))
+    fileURLToPath(new URL('../../libs/shared/ui/vue-component/src/nuxt-module.ts', import.meta.url))
   ],
   workspaceDir: '../../',
   srcDir: 'src',
