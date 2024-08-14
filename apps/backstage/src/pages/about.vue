@@ -26,13 +26,19 @@ const thousandthTest = thousandth(123456789)
         {{ thousandthTest }}
       </div>
       <h2>Counter</h2>
-      <button @click="handleAddCounter">
+      <button
+        data-cy="counter-add"
+        @click="handleAddCounter"
+      >
         Add
       </button>
-      <div>
+      <div data-cy="counter-number">
         {{ counter }}
       </div>
-      <button @click="handleSubtractCounter">
+      <button
+        data-cy="counter-subtract"
+        @click="handleSubtractCounter"
+      >
         Subtract
       </button>
     </div>
