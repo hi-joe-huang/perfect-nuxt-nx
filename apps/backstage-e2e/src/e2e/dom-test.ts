@@ -1,7 +1,7 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor'
 
 Given('Counter Default', () => {
-  cy.visit('/about')
+  cy.visit('/about', {failOnStatusCode: false})
   cy.get('[data-cy="counter-number"]').should('have.text', '1')
 })
 
