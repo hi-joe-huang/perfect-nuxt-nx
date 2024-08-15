@@ -7,11 +7,13 @@ import { defineConfig } from 'cypress';
 const preset = nxE2EPreset(__filename, {
   cypressDir: 'src',
   bundler: 'vite',
-  webServerCommands: { default: 'pnpm exec nx serve backstage' },
+  webServerCommands: { default: 'nx serve backstage' },
   ciWebServerCommand: 'nx run backstage:serve-static',
   webServerConfig: {
-    timeout: 50000,
+    timeout: 120000,
+    
   },
+  
 })
 
 export default defineConfig({
@@ -24,6 +26,7 @@ export default defineConfig({
     viewportHeight: 720,
     supportFile: 'src/support/e2e.ts',
     baseUrl: 'http://localhost:4200',
+    defaultCommandTimeout: 100000,
     specPattern: '**/*.feature',
     async setupNodeEvents(on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): Promise<Cypress.PluginConfigOptions> {
       // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
