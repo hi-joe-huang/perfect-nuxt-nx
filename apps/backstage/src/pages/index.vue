@@ -1,3 +1,9 @@
+<script setup lang="ts">
+  import { Foobar } from '@hiskio/vue-component'
+</script>
 <template>
-  <NxWelcome title="backstage" />
+  <div>
+    <Foobar />
+    <NxWelcome title="backstage" />
+  </div>
 </template>
