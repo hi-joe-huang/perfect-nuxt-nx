@@ -9,7 +9,7 @@ jobs:
     name: Build and deploy Storybook
     runs-on: ubuntu-latest
     env:
-      STORYBOOK_BUILD_DIR: dist/storybook/storybook-host
+      STORYBOOK_BUILD_DIR: libs/vue-component/storybook-static
     steps:
       - name: 初始化倉庫
         uses: actions/checkout@v4
