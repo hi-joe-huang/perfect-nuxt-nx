@@ -1,6 +1,7 @@
 <template>
   <div class="list-items">
     <template v-if="loading">
+    <h2>TaskList</h2>
      <div v-for="n in 6" :key="n" class="loading-item">
        <span class="glow-checkbox" />
        <span class="glow-text">
