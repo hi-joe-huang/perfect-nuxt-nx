@@ -1,0 +1,52 @@
+name: "Chromatic Deployment"
+
+on: 
+  workflow_dispatch:
+  push:
+
+jobs:
+  build-and-deploy-storybook:
+    name: Build and deploy Storybook
+    runs-on: ubuntu-latest
+    env:
+      STORYBOOK_BUILD_DIR: libs/vue-component/storybook-static
+    steps:
+      - name: 初始化倉庫
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 安裝 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: 安裝 pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: '9'
+      - name: 計算 nx affected 指令所需的資料
+        uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: 'main'
+      - name: 安裝快取套件
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: 安裝套件
+        run: pnpm install --frozen-lockfile
+        shell: bash
+      - name: 儲存當前套件於快取中
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Build Storybook
+        run: pnpm nx affected -t build-storybook
+      - name: Deploy to Chromatic
+        uses: chromaui/action@v1
+        with:
+          storybookBuildDir: ${{ github.workspace }}/${{ env.STORYBOOK_BUILD_DIR }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
