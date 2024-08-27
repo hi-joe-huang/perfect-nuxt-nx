@@ -46,6 +46,7 @@
     "@vue/eslint-config-prettier": "7.1.0",
     "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/test-utils": "^2.4.1",
+    "chromatic": "^11.7.1",
     "cypress": "^13.8.0",
     "eslint": "~8.57.0",
     "eslint-config-prettier": "^9.0.0",
